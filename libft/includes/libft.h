@@ -6,7 +6,7 @@
 /*   By: lroux <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 15:42:32 by lroux             #+#    #+#             */
-/*   Updated: 2018/11/18 15:09:13 by lroux            ###   ########.fr       */
+/*   Updated: 2018/11/18 19:53:16 by lroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,8 @@ char			*ft_strjoinfree(char *s1, const char *s2);
 char			*ft_strnjoinfree(char *s1, const char *s2, size_t n);
 char			*ft_strtrim(const char *s);
 char			**ft_strsplit(const char *s, char c);
+
+int				ft_cc(const char *s, char c);
 
 /*
 ** char	*ft_strupr(char *s);

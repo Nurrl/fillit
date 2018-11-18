@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_cc.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lroux <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/18 15:20:40 by lroux             #+#    #+#             */
-/*   Updated: 2018/11/18 19:22:53 by lroux            ###   ########.fr       */
+/*   Created: 2018/11/18 19:53:50 by lroux             #+#    #+#             */
+/*   Updated: 2018/11/18 19:56:26 by lroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+int				ft_cc(const char *s, char c)
 {
-	t_fill *ls;
+	int count;
 
-	if (ac != 2)
-		usage(av[0]);
-	if (rcf(&ls, av[1]) == RCF_FAIL)
-		error();
-	return (0);
+	count = 0;
+	while (*s)
+		if (*s++ == c)
+			count++;
+	return (count);
 }

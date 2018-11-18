@@ -6,7 +6,7 @@
 /*   By: lroux <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 15:21:40 by lroux             #+#    #+#             */
-/*   Updated: 2018/11/18 19:02:35 by pscott           ###   ########.fr       */
+/*   Updated: 2018/11/18 19:35:39 by lroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FILLIT_H
 
 # include <libft.h>
+# include <fcntl.h>
 
 typedef struct		s_point {
 	char			x;
