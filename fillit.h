@@ -6,7 +6,7 @@
 /*   By: lroux <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 15:21:40 by lroux             #+#    #+#             */
-/*   Updated: 2018/11/18 19:00:06 by pscott           ###   ########.fr       */
+/*   Updated: 2018/11/18 19:02:35 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,12 @@
 
 # include <libft.h>
 
-typedef struct		s_point{
+typedef struct		s_point {
 	char			x;
 	char			y;
 }					t_point;
 
 typedef struct		s_fill {
-
 	t_point			points[4];
 	char			letter;
 	struct s_fill	*next;
