@@ -1,0 +1,8 @@
+un et UN SEUL fichier -> usage
+checker format du fichier (doit etre valide)
+faire une liste de tests invalides et les tester avec noter fillit
+pas plus de 26 tetriminos dans un fichier
+checker nombre de '#' et de '.' aussi (4 et 12)
+renvoyer error sur une map invalide
+les tetriminos doivent avoir des lettres assignes
+les tetriminos doivent etre le plus en haut a gauche possible
