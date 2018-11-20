@@ -1,19 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   fill.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lroux <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/18 18:51:17 by lroux             #+#    #+#             */
-/*   Updated: 2018/11/20 14:25:26 by lroux            ###   ########.fr       */
+/*   Created: 2018/11/20 15:24:21 by lroux             #+#    #+#             */
+/*   Updated: 2018/11/20 16:07:33 by lroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void	error(void)
+void	filladd(t_fill **list, t_fill *new)
 {
-	ft_putstr("error\n");
-	exit(1);
+	t_fill *iter;
+
+	if (!new || !list)
+		return ;
+	if (!*list)
+		*list = new;
+	else
+	{
+		iter = *list;
+		while (iter && iter->next)
+			iter = iter->next;
+		iter->next = new;
+	}
+}
+
+int		filllen(t_fill *list)
+{
+	int len;
+
+	if (!list)
+		return (0);
+	len = 0;
+	while (list)
+	{
+		list = list->next;
+		len++;
+	}
+	return (len);
 }
