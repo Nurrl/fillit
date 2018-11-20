@@ -6,7 +6,7 @@
 /*   By: lroux <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 16:29:52 by lroux             #+#    #+#             */
-/*   Updated: 2018/11/20 15:39:57 by lroux            ###   ########.fr       */
+/*   Updated: 2018/11/20 16:24:25 by lroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,17 @@ static inline int	chkadj(char *bf, int x, int y)
 	return (RCF_FAIL);
 }
 
-static inline int	readcf(char (*bf)[21], int ds)
+static inline int	readcf(char (*bf)[21], int ds, int firstread)
 {
 	int		rt;
 	char	dummy;
 
 	if ((rt = read(ds, *bf, 20)) < 0 || rt != 20)
+	{
+		if (firstread)
+			return (RCF_FAIL);
 		return ((rt == 0) ? RCF_EOF : RCF_FAIL);
+	}
 	*bf[20] = 0;
 	if (read(ds, &dummy, 1) < 0)
 		return (RCF_FAIL);
@@ -105,13 +109,16 @@ int					rcf(t_fill **list, char *filename)
 {
 	int		rt;
 	int		ds;
+	int		first;
 	char	bf[21];
 	t_fill	*new;
 
 	if (!(ds = open(filename, O_RDONLY)))
 		return (RCF_FAIL);
-	while ((rt = readcf(&bf, ds)) != RCF_EOF)
+	first = 1;
+	while ((rt = readcf(&bf, ds, first)) != RCF_EOF)
 	{
+		first = 0;
 		if (rt == RCF_FAIL)
 			return (RCF_FAIL);
 		if (rcheckf(bf) == RCF_FAIL)
