@@ -6,7 +6,7 @@
 /*   By: lroux <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 15:43:36 by lroux             #+#    #+#             */
-/*   Updated: 2018/11/20 16:08:01 by lroux            ###   ########.fr       */
+/*   Updated: 2018/11/20 17:31:28 by lroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,11 @@ static void		translate(t_fill *list, t_point move)
 	}
 }
 
-static t_point	maxmove(t_fill *list)
-{
-	char	mx;
-	char	my;
-	int		i;
-
-	mx = 3;
-	my = 3;
-	i = -1;
-	while (++i < 4)
-	{
-		if (list->points[i].x < mx)
-			mx = list->points[i].x;
-		if (list->points[i].y < my)
-			my = list->points[i].y;
-	}
-	return ((t_point){-mx, -my});
-}
-
 void			moveorigin(t_fill *list)
 {
 	while (list)
 	{
-		translate(list, maxmove(list));
+		translate(list, (t_point){-list->points[0].x, -list->points[0].y});
 		list = list->next;
 	}
 }
