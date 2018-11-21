@@ -6,7 +6,7 @@
 /*   By: lroux <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 15:42:32 by lroux             #+#    #+#             */
-/*   Updated: 2018/11/18 19:53:16 by lroux            ###   ########.fr       */
+/*   Updated: 2018/11/21 11:56:34 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ int				ft_isprint(int c);
 char			*ft_ltostr(long num, int base);
 char			*ft_itoa(int n);
 int				ft_atoi(const char *str);
+unsigned int	ft_sqrt(unsigned int nb);
 
 int				ft_isupper(int c);
 int				ft_islower(int c);

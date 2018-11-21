@@ -6,7 +6,7 @@
 #    By: lroux <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 14:23:48 by lroux             #+#    #+#              #
-#    Updated: 2018/11/18 19:52:13 by lroux            ###   ########.fr        #
+#    Updated: 2018/11/21 11:57:44 by pscott           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SRCS	:= ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 		   ft_putnbr_fd.c ft_calloc.c ft_realloc.c ft_ltostr.c ft_lstnew.c \
 		   ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c \
 		   ft_strnjoin.c ft_strreset.c ft_strjoinfree.c ft_strnjoinfree.c \
-		   gnl.c ft_cc.c
+		   gnl.c ft_sqrt.c
 SRCS	:= $(addprefix $(SRCDIR)/, $(SRCS))
 OBJS	:= $(patsubst %.c,%.o,$(SRCS))
 DEPS	:= Makefile libft.h
