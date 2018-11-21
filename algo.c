@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 18:11:14 by pscott            #+#    #+#             */
-/*   Updated: 2018/11/21 11:49:58 by pscott           ###   ########.fr       */
+/*   Updated: 2018/11/21 15:34:38 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_map	create_map(int	map_width)
 	map.size = map.w * (map.w - 1);
 	if (!(map.map = (char*)malloc(sizeof(map) * (map.size + 1))))
 		return ((t_map){});
-	ft_memset(map.map, '0', map.size);
+	ft_memset(map.map, '.', map.size);
 	map.map[map.size] = 0;
 	i = map.w - 1;
 	while (i < map.size)
@@ -47,7 +47,7 @@ int		place_tetri(t_fill *list, t_map *map, int pos)
 		x = list->points[k].x;
 		y = list->points[k].y;
 		point = pos + x + y * map->w;
-		if (map->map[point] != '0')
+		if (map->map[point] != '.' || point > map->size)
 			return (0);
 	}
 	k = -1;
@@ -62,11 +62,14 @@ int		place_tetri(t_fill *list, t_map *map, int pos)
 
 int		change_pos(t_fill *list, t_map *map, int pos)
 {
-	if (pos == map->size + 1)
+	if (pos > map->size)
 		return (0);
 	if (place_tetri(list, map, pos))
 		return (1);
-	return (change_pos(list, map, pos + 1));
+	pos++;
+	while (map->map[pos] != '.' && pos < map->size)
+		pos++;
+	return (change_pos(list, map, pos));
 }
 
 void	clear_letter(char letter, t_map *map)
@@ -91,6 +94,9 @@ int		find_square(t_fill *list, t_map *map, int pos)
 		if (find_square(list->next, map, pos))
 			return (1);
 		clear_letter(list->letter, map);
+		pos++;
+		while (map->map[pos] != '.' && pos < map->size)
+			pos++;
 		return (find_square(list, map, pos + 1));
 	}
 	return (0);
@@ -103,7 +109,6 @@ int		master_function(t_fill *list, t_map *map)
 		return (1);
 	free(map->map);
 	*map = create_map(map->w + 1);
-	printf("newmap:\n%s\n", map->map);
 	master_function(list, map);
 	return (1);
 }

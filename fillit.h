@@ -6,7 +6,7 @@
 /*   By: lroux <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 15:21:40 by lroux             #+#    #+#             */
-/*   Updated: 2018/11/21 11:55:38 by pscott           ###   ########.fr       */
+/*   Updated: 2018/11/21 12:20:20 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int					rcf(t_fill **list, char *filename);
 void				moveorigin(t_fill *list);
 
 //scott's testing
-t_map	create_map(int list_size);
+t_map	create_map(int map_width);
 int		find_square(t_fill *list, t_map *map, int map_size);
 void	print_map(t_map *map, int list_size);
 void	fillappend(t_fill **lst, t_fill *new);

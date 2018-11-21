@@ -6,7 +6,7 @@
 #    By: lroux <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 14:23:48 by lroux             #+#    #+#              #
-#    Updated: 2018/11/20 15:57:58 by lroux            ###   ########.fr        #
+#    Updated: 2018/11/21 12:21:42 by pscott           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ CFLAGS	:= -Wall -Wextra -Werror $(INCLDIR)
 LDFLAGS	:= -Llibft/ -lft
 ARFLAGS	:=
 
-SRCS	:= main.c fill.c utils.c usage.c error.c rcf.c
+SRCS	:= main.c fill.c utils.c usage.c error.c rcf.c algo.c
 SRCS	:= $(addprefix $(SRCDIR)/, $(SRCS))
 OBJS	:= $(patsubst %.c,%.o,$(SRCS))
 DEPS	:= libft Makefile fillit.h
