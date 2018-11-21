@@ -6,7 +6,7 @@
 /*   By: lroux <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 15:21:40 by lroux             #+#    #+#             */
-/*   Updated: 2018/11/21 12:20:20 by pscott           ###   ########.fr       */
+/*   Updated: 2018/11/21 18:20:07 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct		s_map {
 
 void				filladd(t_fill **list, t_fill *new);
 int					filllen(t_fill *list);
+void				fillfree(t_fill *list);
 void				usage(char *name);
 void				error(void);
 void				clean(void);

@@ -6,7 +6,7 @@
 #    By: lroux <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 14:23:48 by lroux             #+#    #+#              #
-#    Updated: 2018/11/21 18:04:20 by pscott           ###   ########.fr        #
+#    Updated: 2018/11/21 18:31:46 by pscott           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,17 +16,17 @@ LD		:= gcc
 AR		:= ar
 RM		:= rm -f
 
-SRCDIR	:= .
-INCLDIR := -I libft/includes
+SRCDIR	:= srcs
+INCLDIR := -I libft/includes -I includes/
 
 CFLAGS	:= -Wall -Wextra -Werror $(INCLDIR)
 LDFLAGS	:= -Llibft/ -lft
 ARFLAGS	:=
 
-SRCS	:= main.c fill.c utils.c usage.c error.c rcf.c algo.c
+SRCS	:= main.c fill.c utils.c usage.c error.c rcf.c algo.c map.c
 SRCS	:= $(addprefix $(SRCDIR)/, $(SRCS))
 OBJS	:= $(patsubst %.c,%.o,$(SRCS))
-DEPS	:= libft Makefile fillit.h
+DEPS	:= libft Makefile includes/fillit.h
 NAME	:= fillit
 
 all: $(DEPS) $(NAME)
