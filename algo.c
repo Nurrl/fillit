@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 18:11:14 by pscott            #+#    #+#             */
-/*   Updated: 2018/11/21 15:34:38 by pscott           ###   ########.fr       */
+/*   Updated: 2018/11/21 18:00:42 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_map	create_map(int	map_width)
 	return (map);
 }
 
-int		place_tetri(t_fill *list, t_map *map, int pos)
+int		try_letter(t_fill *list, t_map *map, int pos)
 {
 	int k;
 	int	x;
@@ -60,52 +60,72 @@ int		place_tetri(t_fill *list, t_map *map, int pos)
 	return (1);
 }
 
-int		change_pos(t_fill *list, t_map *map, int pos)
+int		place_letter(t_fill *list, t_map *map, int pos)
 {
-	if (pos > map->size)
-		return (0);
-	if (place_tetri(list, map, pos))
-		return (1);
-	pos++;
-	while (map->map[pos] != '.' && pos < map->size)
+	while (map->map[pos] != '.')
+	{
+		if (pos > map->size)
+			return (0);
 		pos++;
-	return (change_pos(list, map, pos));
+	}
+	while (pos < map->size)
+	{
+		if (try_letter(list, map, pos))
+			return (1);
+		pos++;
+	}
+	return (0);
 }
 
-void	clear_letter(char letter, t_map *map)
+void	clear_letter(t_fill *list, t_map *map)
 {
-	char *tmp;
+	char	*tmp;
+	int		k;
+	int		point;
 
 	tmp = map->map;
 	while (*tmp)
 	{
-		if (*tmp== letter)
-			*tmp= '0';
+		if (*tmp == list->letter)
+		{
+			k = -1;
+			while (++k < 4)
+			{
+				point = list->points[k].x + map->w * list->points[k].y;
+				*(tmp + point) = '.';
+			}
+			return ;
+		}
 		tmp++;
 	}
 }
 
-int		find_square(t_fill *list, t_map *map, int pos)
+int		try_map(t_fill *list, t_map *map, int pos)
 {
-	if (!list || pos == map->size + 1)
+	if (!list)
 		return (1);
-	if (change_pos(list, map, pos))
+	if (pos > map->size)
+		return (0);
+	if (place_letter(list, map, pos))
 	{
-		if (find_square(list->next, map, pos))
+		if (try_map(list->next, map, 0))
 			return (1);
-		clear_letter(list->letter, map);
+		clear_letter(list, map);
 		pos++;
 		while (map->map[pos] != '.' && pos < map->size)
 			pos++;
-		return (find_square(list, map, pos + 1));
+		return (try_map(list, map, pos));
 	}
 	return (0);
 }
 
 int		master_function(t_fill *list, t_map *map)
 {
-
-	if (find_square(list, map, 0))
+	if (!list)
+		return (0);
+	if (map->w > 50)
+		return (0);
+	if (try_map(list, map, 0))
 		return (1);
 	free(map->map);
 	*map = create_map(map->w + 1);
