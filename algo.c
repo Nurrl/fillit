@@ -6,7 +6,7 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 18:11:14 by pscott            #+#    #+#             */
-/*   Updated: 2018/11/20 20:39:36 by pscott           ###   ########.fr       */
+/*   Updated: 2018/11/21 11:49:58 by pscott           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,15 @@ int		place_tetri(t_fill *list, t_map *map, int pos)
 	int k;
 	int	x;
 	int	y;
+	int	point;
 
 	k = -1;
 	while (++k < 4)
 	{
 		x = list->points[k].x;
 		y = list->points[k].y;
-		if (map->map[pos + x + y * map->w] != '0')
+		point = pos + x + y * map->w;
+		if (map->map[point] != '0')
 			return (0);
 	}
 	k = -1;
@@ -96,12 +98,12 @@ int		find_square(t_fill *list, t_map *map, int pos)
 
 int		master_function(t_fill *list, t_map *map)
 {
-	t_map	newmap;
 
 	if (find_square(list, map, 0))
 		return (1);
 	free(map->map);
-	newmap = create_map(map->w + 1);
-	master_function(list, &newmap);
+	*map = create_map(map->w + 1);
+	printf("newmap:\n%s\n", map->map);
+	master_function(list, map);
 	return (1);
 }
