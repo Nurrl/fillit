@@ -6,7 +6,7 @@
 #    By: lroux <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 14:23:48 by lroux             #+#    #+#              #
-#    Updated: 2018/11/22 11:23:19 by pscott           ###   ########.fr        #
+#    Updated: 2018/11/22 11:48:06 by lroux            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,13 +26,13 @@ ARFLAGS	:=
 SRCS	:= main.c fill.c utils.c usage.c error.c rcf.c algo.c map.c
 SRCS	:= $(addprefix $(SRCDIR)/, $(SRCS))
 OBJS	:= $(patsubst %.c,%.o,$(SRCS))
-DEPS	:= libft Makefile includes/fillit.h
+DEPS	:= Makefile includes/fillit.h libft
 NAME	:= fillit
 
 all: $(NAME)
 
 libft:
-	$(MAKE) -C libft
+	$(MAKE) -C libft/
 
 $(NAME): $(DEPS) $(OBJS)
 	$(LD) $(LDFLAGS) -o $(NAME) $(OBJS)
@@ -55,4 +55,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re libft comp
+.PHONY: all libft clean fclean re comp
