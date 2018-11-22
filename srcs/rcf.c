@@ -6,7 +6,7 @@
 /*   By: lroux <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 16:29:52 by lroux             #+#    #+#             */
-/*   Updated: 2018/11/20 16:24:25 by lroux            ###   ########.fr       */
+/*   Updated: 2018/11/22 10:44:01 by lroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int					rcf(t_fill **list, char *filename)
 	char	bf[21];
 	t_fill	*new;
 
+	ft_bzero(bf, 21);
 	if (!(ds = open(filename, O_RDONLY)))
 		return (RCF_FAIL);
 	first = 1;
