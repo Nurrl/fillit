@@ -6,7 +6,7 @@
 #    By: lroux <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 14:23:48 by lroux             #+#    #+#              #
-#    Updated: 2018/11/22 11:16:11 by lroux            ###   ########.fr        #
+#    Updated: 2018/11/22 11:23:19 by pscott           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,8 @@ $(NAME): $(DEPS) $(OBJS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 comp:
-	./fillit tetris > ours
-	./wta tetris > theirs
+	-./fillit tetris > ours
+	-./gguichar tetris > theirs
 	diff ours theirs
 
 clean:
