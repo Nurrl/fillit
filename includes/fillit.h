@@ -6,7 +6,7 @@
 /*   By: lroux <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 15:21:40 by lroux             #+#    #+#             */
-/*   Updated: 2018/11/22 10:30:10 by lroux            ###   ########.fr       */
+/*   Updated: 2018/11/22 11:06:00 by lroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ void				error(t_fill **list);
 int					rcf(t_fill **list, char *filename);
 void				moveorigin(t_fill *list);
 
-t_map	create_map(int map_width);
-int		find_square(t_fill *list, t_map *map, int map_size);
-void	print_map(t_map *map, int list_size);
-void	fillappend(t_fill **lst, t_fill *new);
-void	print_points(t_point *points);
-void	fillprint(t_fill **lst);
-void	print_map(t_map *map, int list_size);
-int		master_function(t_fill *list, t_map *map);
+t_map				create_map(int map_width);
+int					find_square(t_fill *list, t_map *map, int map_size);
+void				print_map(t_map *map, int list_size);
+void				fillappend(t_fill **lst, t_fill *new);
+void				print_points(t_point *points);
+void				fillprint(t_fill **lst);
+void				print_map(t_map *map, int list_size);
+int					master_function(t_fill *list, t_map *map);
 
 #endif

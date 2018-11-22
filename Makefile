@@ -6,7 +6,7 @@
 #    By: lroux <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 14:23:48 by lroux             #+#    #+#              #
-#    Updated: 2018/11/21 18:31:46 by pscott           ###   ########.fr        #
+#    Updated: 2018/11/22 11:16:11 by lroux            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,12 +29,12 @@ OBJS	:= $(patsubst %.c,%.o,$(SRCS))
 DEPS	:= libft Makefile includes/fillit.h
 NAME	:= fillit
 
-all: $(DEPS) $(NAME)
+all: $(NAME)
 
 libft:
 	$(MAKE) -C libft
 
-$(NAME): $(OBJS)
+$(NAME): $(DEPS) $(OBJS)
 	$(LD) $(LDFLAGS) -o $(NAME) $(OBJS)
 
 %.o: %.c
@@ -47,10 +47,12 @@ comp:
 
 clean:
 	$(RM) $(OBJS)
+	$(MAKE) -C libft clean
 
 fclean: clean
 	$(RM) $(NAME)
+	$(MAKE) -C libft fclean
 
 re: fclean all
 
-.PHONY: all clean fclean libft
+.PHONY: all clean fclean re libft comp
