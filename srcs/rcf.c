@@ -6,38 +6,41 @@
 /*   By: lroux <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 16:29:52 by lroux             #+#    #+#             */
-/*   Updated: 2018/11/22 10:44:01 by lroux            ###   ########.fr       */
+/*   Updated: 2018/11/22 12:32:39 by lroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static inline int	chkadj(char *bf, int x, int y)
+static inline int	countadj(char *bf, int x, int y)
 {
+	int count;
+
+	count = 0;
 	if (x > 0 && bf[y * 5 + (x - 1)] == '#')
-		return (RCF_KEK);
+		count++;
 	if (x < 3 && bf[y * 5 + (x + 1)] == '#')
-		return (RCF_KEK);
+		count++;
 	if (y > 0 && bf[(y - 1) * 5 + x] == '#')
-		return (RCF_KEK);
+		count++;
 	if (y < 3 && bf[(y + 1) * 5 + x] == '#')
-		return (RCF_KEK);
-	return (RCF_FAIL);
+		count++;
+	return (count);
 }
 
-static inline int	readcf(char (*bf)[21], int ds, int firstread)
+static inline int	readcf(char (*bf)[21], int ds, int *hadnl)
 {
 	int		rt;
 	char	dummy;
 
 	if ((rt = read(ds, *bf, 20)) < 0 || rt != 20)
 	{
-		if (firstread)
+		if (*hadnl == 1)
 			return (RCF_FAIL);
 		return ((rt == 0) ? RCF_EOF : RCF_FAIL);
 	}
 	*bf[20] = 0;
-	if (read(ds, &dummy, 1) < 0)
+	if ((*hadnl = read(ds, &dummy, 1)) < 0)
 		return (RCF_FAIL);
 	return (RCF_KEK);
 }
@@ -55,6 +58,7 @@ static inline int	rcheckf(char *bf)
 {
 	int x;
 	int y;
+	int tot;
 
 	if (ft_cc(bf, '#') != 4 || ft_cc(bf, '.') != 12 || ft_cc(bf, '\n') != 4)
 		return (RCF_FAIL);
@@ -62,14 +66,16 @@ static inline int	rcheckf(char *bf)
 		return (RCF_FAIL);
 	x = -1;
 	y = 0;
+	tot = 0;
 	while (bf[y * 5 + ++x])
 	{
 		y = (x > 3) ? y + 1 : y;
 		x = (x > 3) ? 0 : x;
 		if (bf[y * 5 + x] == '#')
-			if (chkadj(bf, x, y) == RCF_FAIL)
-				return (RCF_FAIL);
+			tot += countadj(bf, x, y);
 	}
+	if (tot < 6)
+		return (RCF_FAIL);
 	return (RCF_KEK);
 }
 
@@ -109,17 +115,16 @@ int					rcf(t_fill **list, char *filename)
 {
 	int		rt;
 	int		ds;
-	int		first;
+	int		hadnl;
 	char	bf[21];
 	t_fill	*new;
 
 	ft_bzero(bf, 21);
 	if (!(ds = open(filename, O_RDONLY)))
 		return (RCF_FAIL);
-	first = 1;
-	while ((rt = readcf(&bf, ds, first)) != RCF_EOF)
+	hadnl = 1;
+	while ((rt = readcf(&bf, ds, &hadnl)) != RCF_EOF)
 	{
-		first = 0;
 		if (rt == RCF_FAIL)
 			return (RCF_FAIL);
 		if (rcheckf(bf) == RCF_FAIL)
