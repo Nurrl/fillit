@@ -5,5 +5,5 @@
 [OK] checker nombre de '#' et de '.' aussi (4 et 12)
 [OK] renvoyer error sur une map invalide
 [OK] les tetriminos doivent avoir des lettres assignes
-!! les tetriminos doivent etre le plus en haut a gauche possible
+[OK] les tetriminos doivent etre le plus en haut a gauche possible
 !! fixer les leaks
