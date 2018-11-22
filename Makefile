@@ -40,6 +40,11 @@ $(NAME): $(OBJS)
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
+comp:
+	./fillit tetris > ours
+	./wta tetris > theirs
+	diff ours theirs
+
 clean:
 	$(RM) $(OBJS)
 
