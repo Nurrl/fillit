@@ -6,7 +6,7 @@
 /*   By: lroux <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 15:24:21 by lroux             #+#    #+#             */
-/*   Updated: 2018/11/21 18:25:33 by pscott           ###   ########.fr       */
+/*   Updated: 2018/11/22 10:33:45 by lroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ int		filllen(t_fill *list)
 	return (len);
 }
 
-void	fillfree(t_fill *list)
+void	fillfree(t_fill **list)
 {
 	t_fill *tmp;
 
-	tmp = list;
-	while (list)
+	while (*list)
 	{
-		list = list->next;
+		tmp = *list;
+		*list = (*list)->next;
 		free(tmp);
-		tmp = list;
 	}
+	*list = NULL;
 }

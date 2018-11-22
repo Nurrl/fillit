@@ -6,7 +6,7 @@
 /*   By: lroux <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 15:20:40 by lroux             #+#    #+#             */
-/*   Updated: 2018/11/21 18:25:32 by pscott           ###   ########.fr       */
+/*   Updated: 2018/11/22 10:30:43 by lroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,18 @@
 int	main(int ac, char **av)
 {
 	t_fill	*ls;
-	int		map_width;
 	t_map	map;
 
 	if (ac != 2)
 		usage(av[0]);
+	ls = NULL;
 	if (rcf(&ls, av[1]) == RCF_FAIL)
-		error();
+		error(&ls);
 	moveorigin(ls);
-	map_width = (int)ft_sqrt((unsigned int)filllen(ls) * 4);
-	map = create_map(map_width);
+	map = create_map((int)ft_sqrt((unsigned int)filllen(ls) * 4));
 	master_function(ls, &map);
 	ft_putstr(map.map);
+	fillfree(&ls);
 	free(map.map);
-	/* Ici 'ls' contient ta liste chainee a l'origine */
-	
-	/* Don't kill following comment :c */
-	/*while (ls)
-	{
-		printf("@ Tetrimino:\nLetter: %c\nPos:\n-> (%d, %d)\n-> (%d, %d)\n-> (%d, %d)\n-> (%d, %d)\n\n",
-				ls->letter, ls->points[0].x, ls->points[0].y, ls->points[1].x, ls->points[1].y, ls->points[2].x, ls->points[2].y, ls->points[3].x, ls->points[3].y);
-		ls = ls->next;
-	}*/
 	return (0);
 }
