@@ -6,7 +6,7 @@
 /*   By: lroux <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 16:29:52 by lroux             #+#    #+#             */
-/*   Updated: 2018/11/22 12:32:39 by lroux            ###   ########.fr       */
+/*   Updated: 2018/11/22 13:27:45 by lroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static inline int	rcheckf(char *bf)
 	return (RCF_KEK);
 }
 
-static inline int	rcfill(t_fill **iter, char *bf, size_t len)
+static inline int	rcfill(t_fill **ls, t_fill **iter, char *bf, size_t len)
 {
 	size_t	index;
 	int		x;
@@ -88,7 +88,7 @@ static inline int	rcfill(t_fill **iter, char *bf, size_t len)
 	if (len > 25)
 		return (RCF_FAIL);
 	if (!(*iter = malloc(sizeof(t_fill))))
-		return (RCF_FAIL);
+		exit(clean(ls, NULL));
 	(*iter)->letter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[len];
 	(*iter)->next = NULL;
 	x = -1;
@@ -129,7 +129,7 @@ int					rcf(t_fill **list, char *filename)
 			return (RCF_FAIL);
 		if (rcheckf(bf) == RCF_FAIL)
 			return (RCF_FAIL);
-		if (rcfill(&new, bf, filllen(*list)) == RCF_FAIL)
+		if (rcfill(list, &new, bf, filllen(*list)) == RCF_FAIL)
 			return (RCF_FAIL);
 		filladd(list, new);
 	}

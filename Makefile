@@ -6,7 +6,7 @@
 #    By: lroux <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 14:23:48 by lroux             #+#    #+#              #
-#    Updated: 2018/11/22 11:48:06 by lroux            ###   ########.fr        #
+#    Updated: 2018/11/22 13:48:56 by lroux            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,32 +18,29 @@ RM		:= rm -f
 
 SRCDIR	:= srcs
 INCLDIR := -I libft/includes -I includes/
+LIBDIR	:= libft/
 
 CFLAGS	:= -Wall -Wextra -Werror $(INCLDIR)
-LDFLAGS	:= -Llibft/ -lft
+LDFLAGS	:= -L$(LIBDIR) -lft
 ARFLAGS	:=
 
 SRCS	:= main.c fill.c utils.c usage.c error.c rcf.c algo.c map.c
 SRCS	:= $(addprefix $(SRCDIR)/, $(SRCS))
 OBJS	:= $(patsubst %.c,%.o,$(SRCS))
-DEPS	:= Makefile includes/fillit.h libft
+DEPS	:= Makefile includes/fillit.h
+LIB		:= $(LIBDIR)/libft.a
 NAME	:= fillit
 
 all: $(NAME)
 
-libft:
+$(LIB):
 	$(MAKE) -C libft/
 
-$(NAME): $(DEPS) $(OBJS)
+$(NAME): $(LIB) $(OBJS)
 	$(LD) $(LDFLAGS) -o $(NAME) $(OBJS)
 
-%.o: %.c
+%.o: %.c $(DEPS)
 	$(CC) $(CFLAGS) -c $< -o $@
-
-comp:
-	-./fillit tetris > ours
-	-./gguichar tetris > theirs
-	diff ours theirs
 
 clean:
 	$(RM) $(OBJS)
@@ -55,4 +52,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all libft clean fclean re comp
+.PHONY: all clean fclean re comp

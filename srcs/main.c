@@ -6,7 +6,7 @@
 /*   By: lroux <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 15:20:40 by lroux             #+#    #+#             */
-/*   Updated: 2018/11/22 10:30:43 by lroux            ###   ########.fr       */
+/*   Updated: 2018/11/22 13:54:52 by lroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@ int	main(int ac, char **av)
 	if (rcf(&ls, av[1]) == RCF_FAIL)
 		error(&ls);
 	moveorigin(ls);
-	map = create_map((int)ft_sqrt((unsigned int)filllen(ls) * 4));
-	master_function(ls, &map);
+	map = createmap(&ls, ft_sqrt((unsigned int)filllen(ls) * 4));
+	fillit(ls, &map);
 	ft_putstr(map.map);
-	fillfree(&ls);
-	free(map.map);
+	clean(&ls, map.map);
 	return (0);
 }

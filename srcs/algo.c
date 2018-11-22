@@ -6,13 +6,13 @@
 /*   By: pscott <pscott@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 18:11:14 by pscott            #+#    #+#             */
-/*   Updated: 2018/11/21 18:25:29 by pscott           ###   ########.fr       */
+/*   Updated: 2018/11/22 13:54:09 by lroux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int		try_letter(t_fill *list, t_map *map, int pos)
+static int	tryletter(t_fill *list, t_map *map, int pos)
 {
 	int k;
 	int	x;
@@ -38,7 +38,7 @@ int		try_letter(t_fill *list, t_map *map, int pos)
 	return (1);
 }
 
-int		place_letter(t_fill *list, t_map *map, int pos)
+static int	placeletter(t_fill *list, t_map *map, int pos)
 {
 	while (map->map[pos] != '.')
 	{
@@ -48,14 +48,14 @@ int		place_letter(t_fill *list, t_map *map, int pos)
 	}
 	while (pos < map->size)
 	{
-		if (try_letter(list, map, pos))
+		if (tryletter(list, map, pos))
 			return (1);
 		pos++;
 	}
 	return (0);
 }
 
-void	clear_letter(t_fill *list, t_map *map)
+static void	clearletter(t_fill *list, t_map *map)
 {
 	char	*tmp;
 	int		k;
@@ -78,35 +78,33 @@ void	clear_letter(t_fill *list, t_map *map)
 	}
 }
 
-int		try_map(t_fill *list, t_map *map, int pos)
+static int	trymap(t_fill *list, t_map *map, int pos)
 {
 	if (!list)
 		return (1);
 	if (pos > map->size)
 		return (0);
-	if (place_letter(list, map, pos))
+	if (placeletter(list, map, pos))
 	{
-		if (try_map(list->next, map, 0))
+		if (trymap(list->next, map, 0))
 			return (1);
-		clear_letter(list, map);
+		clearletter(list, map);
 		pos++;
 		while (map->map[pos] != '.' && pos < map->size)
 			pos++;
-		return (try_map(list, map, pos));
+		return (trymap(list, map, pos));
 	}
 	return (0);
 }
 
-int		master_function(t_fill *list, t_map *map)
+int			fillit(t_fill *list, t_map *map)
 {
-	if (!list)
+	if (!list || !map->map || map->w > 50)
 		return (0);
-	if (map->w > 50)
-		return (0);
-	if (try_map(list, map, 0))
+	if (trymap(list, map, 0))
 		return (1);
 	free(map->map);
-	*map = create_map(map->w + 1);
-	master_function(list, map);
+	*map = createmap(&list, map->w + 1);
+	fillit(list, map);
 	return (1);
 }
